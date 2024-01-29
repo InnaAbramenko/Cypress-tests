@@ -15,9 +15,8 @@ describe('UI Tests', () => {
     
     });
 
-    it('Verify the ability to switch the theme', () => {
-        const toggleColor = cy.get(':nth-child(3) > .theme-switcher');
-        toggleColor.click();
-        cy.get('.header__inner').should('have.css', '--header-background-color', 'rgb(251, 250, 250)')
+    it('Verify the ability to switch the theme', () => {   
+        homePage.themeToggle.click();
+        cy.get('.light-mode .header-ui-23').should('have.css', '--header-background-color', 'rgb(251, 250, 250)')
     })
 })
