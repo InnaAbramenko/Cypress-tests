@@ -1,6 +1,0 @@
-describe('UI Tests', () => {
-
-    it('should check page title', () => {
-        cypress.visit('https://www.epam.com/')
-    })
-})
