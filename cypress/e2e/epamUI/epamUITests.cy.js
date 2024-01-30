@@ -18,5 +18,9 @@ describe('UI Tests', () => {
     it('Verify the ability to switch the theme', () => {   
         homePage.themeToggle.click();
         cy.get('.light-mode .header-ui-23').should('have.css', '--header-background-color', 'rgb(251, 250, 250)')
+    });
+
+    it('Verify the policies list items', () => {
+        investorsItem.should('be.visible');
     })
 })
