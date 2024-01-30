@@ -21,6 +21,11 @@ describe('UI Tests', () => {
     });
 
     it('Verify the policies list items', () => {
-        investorsItem.should('be.visible');
-    })
+        homePage.investorsItem.should('be.visible');
+        homePage.cookiePolicyItem.should('be.visible');
+        homePage.openSourceItem.should('be.visible');
+        homePage.privacyNoticeItem.should('be.visible');
+        homePage.privacyPoliceItem.should('be.visible');
+        homePage.webAccessItem.should('be.visible');
+    });
 })
