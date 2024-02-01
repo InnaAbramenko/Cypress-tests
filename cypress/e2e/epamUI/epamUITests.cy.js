@@ -21,7 +21,7 @@ describe('UI Tests Epam', () => {
 
     it('Verify the ability to switch the theme', () => {   
         basePage.themeToggle.click();
-        cy.get('.header-ui-23').should('have.css', 'background-color', 'rgb(251, 250, 250)');
+        basePage.header.should('have.css', 'background-color', 'rgb(251, 250, 250)');
     });
 
     it('Verify the ability to switch language to UA', () => {

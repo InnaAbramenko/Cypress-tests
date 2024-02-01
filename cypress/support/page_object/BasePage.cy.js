@@ -5,6 +5,9 @@ get acceptCookiesButton() {
 get themeToggle() {
         return cy.get(':nth-child(3) > .theme-switcher');
     };
+get header() {
+    return cy.get('.header-ui-23');
+}
 get hamburgerMenuButton() {
     return cy.get('.hamburger-menu__button');
 };
