@@ -1,10 +1,5 @@
 class HomePage {
-    get acceptCookiesButton() {
-        return cy.get('#onetrust-accept-btn-handler');
-    };
-    get themeToggle() {
-        return cy.get(':nth-child(3) > .theme-switcher');
-    };
+  
     get investorsItem() {
         return cy.get("a[href='/investors']");
     };
@@ -23,9 +18,21 @@ class HomePage {
     get webAccessItem() {
         return cy.get("a[href='/web-accessibility-statement']");
     };
-    open() {
-        cy.visit('https://www.epam.com/');
-    }
+    
+    get locationAmericas() {
+        return cy.get('.tabs-23__title.active > .tabs-23__link');
+    };
+    get locationEMEA() {
+        return cy.get(':nth-child(2) > .tabs-23__link');
+    };
+    get locationAPAC() {
+        return cy.get(':nth-child(3) > .tabs-23__link');
+    };
+    get searchResults() {
+        return cy.get('div.search-results__items');
+
+    };
+   
 
 }
 
