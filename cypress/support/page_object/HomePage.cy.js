@@ -32,6 +32,22 @@ class HomePage {
         return cy.get('div.search-results__items');
 
     };
+    clickLocationEMEA() {
+        this.locationEMEA.click();
+        return this;
+    };
+    clickLocationAPAC() {
+        this.locationAPAC.click();
+        return this; 
+    };
+    clickLocationAmericas() {
+        this.locationAmericas.click();
+        return this;
+    };
+    checkElementVisible(element) {
+        element.should('be.visible');
+        return this;
+    };
    
 
 }

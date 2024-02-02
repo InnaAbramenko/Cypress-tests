@@ -36,7 +36,44 @@ get findButton() {
     return cy.get('.custom-button.button-text.font-900.gradient-border-button.large-gradient-button.uppercase-text.custom-search-button');
 };
 open() {
-    cy.visit('https://www.epam.com/');
+    cy.visit('https://www.epam.com/')
+    return this;
+};
+clickThemeToggle() {
+    this.themeToggle.click();
+    return this;
+};
+clickLanguageSwitcher() {
+    this.languageSwitcher.click();
+    return this;
+};
+clickUALannguage() {
+    this.uaLanguage.click();
+    return this;
+};
+clickSearchIcon() {
+    this.searchIcon.click();
+    return this;
+};
+typeInSearchField() {
+    this.searchInputField.type('AI');
+    return this;
+};
+clickFindButton() {
+    this.findButton.click();
+    return this;
+};
+clickHamburgerMenuButton() {
+    this.hamburgerMenuButton.click();
+    return this;
+};
+clickAboutMenuButton() {
+    this.aboutMenuButton.click();
+    return this;
+};
+clickCompanyLogoButton() {
+    this.companyLogoButton.click();
+    return this;
 };
 }
 
