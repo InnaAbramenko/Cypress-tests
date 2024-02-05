@@ -55,7 +55,9 @@ clickSearchIcon() {
     this.searchIcon.click();
     return this;
 };
-typeInSearchField() {
+typeInSearchField() { //todo параметризований метод виглядає так:
+    // typeInSearchField('text') {
+    //      this.searchInputField.type(text);
     this.searchInputField.type('AI');
     return this;
 };

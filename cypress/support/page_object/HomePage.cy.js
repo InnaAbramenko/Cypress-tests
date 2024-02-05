@@ -1,4 +1,6 @@
-class HomePage {
+import BasePage from "./BasePage.cy";
+
+class HomePage extends BasePage{ //todo я додала наслідування від базової
   
     get investorsItem() {
         return cy.get("a[href='/investors']");
