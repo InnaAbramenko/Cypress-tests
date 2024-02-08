@@ -22,7 +22,8 @@ class HomePage extends BasePage {
     };
 
     get locationsList() {
-        return cy.get('.tabs-23__ul.js-tabs-links-list');
+        //return cy.get('.tabs-23__ul.js-tabs-links-list');
+        return cy.get('.js-tabs-title');
     };
     
     get locationAmericas() {

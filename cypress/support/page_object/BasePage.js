@@ -47,8 +47,8 @@ get aboutButton() {
     return cy.get(':nth-child(4) > .top-navigation__item-text > .top-navigation__item-link')    
  };
 
-get policiesSection() {
-    return cy.get('.policies-links-wrapper')
+get policiesSectionList() {
+    return cy.get('.policies-links-wrapper li.links-item')
 }
     
 open() {

@@ -39,8 +39,8 @@ describe('UI Tests Epam', () => {
             }
           });
         cy.origin('https://careers.epam.ua', () => {
-            //cy.get('div.location-selector-ui.header__control button.location-selector__button').should('have.text', 'Україна (UA)');
-            homePage.languageSwitcherUA.should('have.text', 'Україна (UA)');
+            cy.get('div.location-selector-ui.header__control button.location-selector__button').should('have.text', 'Україна (UA)');
+            //homePage.languageSwitcherUA.should('have.text', 'Україна (UA)');
             cy.url().should('eq', 'https://careers.epam.ua/');
           });
 
@@ -49,8 +49,7 @@ describe('UI Tests Epam', () => {
 
     it('Verify the policies list items', () => {
     homePage
-        .policiesSection
-        .find('li.links-item')
+        .policiesSectionList
         .should('have.length', 6);
 
         homePage.investorsItem.should('be.visible').and('have.text', 'INVESTORS')
@@ -64,7 +63,7 @@ describe('UI Tests Epam', () => {
     it('Verify the Locations items presence and switching between them', () => {
     homePage
         .locationsList
-        .children('div')
+        //.children('div')
         .should('have.length', 3)
         
     homePage.locationAmericas.should('be.visible').and('have.text', 'AMERICAS')
