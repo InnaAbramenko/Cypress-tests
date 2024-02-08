@@ -18,6 +18,10 @@ class HomePage {
     get webAccessItem() {
         return cy.get("a[href='/web-accessibility-statement']");
     };
+
+    get locationsList() {
+        return cy.get('.tabs-23__ul.js-tabs-links-list');
+    };
     
     get locationAmericas() {
         return cy.get('.tabs-23__title.active > .tabs-23__link');
@@ -42,10 +46,6 @@ class HomePage {
     };
     clickLocationAmericas() {
         this.locationAmericas.click();
-        return this;
-    };
-    checkElementVisible(element) {
-        element.should('be.visible');
         return this;
     };
    

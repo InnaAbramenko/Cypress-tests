@@ -1,7 +1,10 @@
 class BasePage {
+    
 get acceptCookiesButton() {
         return cy.get('#onetrust-accept-btn-handler');
+
     };
+
 get themeToggle() {
         return cy.get(':nth-child(3) > .theme-switcher');
     };
@@ -35,8 +38,25 @@ get searchInputField() {
 get findButton() {
     return cy.get('.custom-button.button-text.font-900.gradient-border-button.large-gradient-button.uppercase-text.custom-search-button');
 };
+
+get contactUSButton() {
+    return cy.get('.header__content > :nth-child(5)');
+};
+
+get aboutButton() {
+    return cy.get(':nth-child(4) > .top-navigation__item-text > .top-navigation__item-link')    
+ }
+    
 open() {
     cy.visit('https://www.epam.com/')
+    return this;
+};
+clickContactUsButton() {
+    this.contactUSButton.click();
+    return this;
+};
+clickAcceptCookiesButton() {
+    this.acceptCookiesButton.click();
     return this;
 };
 clickThemeToggle() {
@@ -55,8 +75,8 @@ clickSearchIcon() {
     this.searchIcon.click();
     return this;
 };
-typeInSearchField() {
-    this.searchInputField.type('AI');
+typeInSearchField(keyword) {
+    this.searchInputField.type(keyword);
     return this;
 };
 clickFindButton() {
