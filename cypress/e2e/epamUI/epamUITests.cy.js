@@ -36,7 +36,7 @@ describe('UI Tests Epam', () => {
             }
           });
         cy.origin('https://careers.epam.ua', () => {
-            // TODO селектор нижче перемісти в пейдж обджект, щоб було зрозуміло що це таке
+            // TODO селектор нижче перемісти в пейдж обджект, щоб було зрозуміло що це таке ❓ раніше намагалась зробити таке, але при рані тестів видавало помилку типу винесені локатори не бачить в скоупі cy.origin
             cy.get('div.location-selector-ui.header__control button.location-selector__button').should('have.text', 'Україна (UA)');
             cy.url().should('eq', 'https://careers.epam.ua/');
           });
