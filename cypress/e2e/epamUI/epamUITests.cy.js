@@ -20,17 +20,17 @@ describe('UI Tests Epam', () => {
     });
 
     it('Verify the ability to switch the theme', () => {   
-        basePage 
+        homePage 
             .clickThemeToggle()
             .header.should('have.css', 'background-color', 'rgb(251, 250, 250)').and('not.have.css', 'background-color', 'rgb(6, 6, 6)');
-        basePage
+        homePage
             .clickThemeToggle()
             .header.should('have.css', 'background-color', 'rgb(6, 6, 6)').and('not.have.css', 'background-color', 'rgb(251, 250, 250)');
 
     });
 
     it('Verify the ability to switch language to UA', () => {
-        basePage
+        homePage
             .clickLanguageSwitcher()
             .clickUALannguage();
         cy.on('uncaught:exception', (e) => {
@@ -39,7 +39,8 @@ describe('UI Tests Epam', () => {
             }
           });
         cy.origin('https://careers.epam.ua', () => {
-            cy.get('div.location-selector-ui.header__control button.location-selector__button').should('have.text', 'Україна (UA)');
+            //cy.get('div.location-selector-ui.header__control button.location-selector__button').should('have.text', 'Україна (UA)');
+            homePage.languageSwitcherUA.should('have.text', 'Україна (UA)');
             cy.url().should('eq', 'https://careers.epam.ua/');
           });
 
@@ -47,35 +48,39 @@ describe('UI Tests Epam', () => {
 
 
     it('Verify the policies list items', () => {
-            homePage.investorsItem.should('be.visible').contains('INVESTORS')
-            homePage.cookiePolicyItem.should('be.visible').contains('COOKIE POLICY')
-            homePage.openSourceItem.should('be.visible').contains('OPEN SOURCE')
-            homePage.privacyNoticeItem.should('be.visible').contains('APPLICANT PRIVACY NOTICE')
-            homePage.privacyPoliceItem.should('be.visible').contains('PRIVACY POLICY')
-            homePage.webAccessItem.should('be.visible').contains('WEB ACCESSIBILITY')
+    homePage
+        .policiesSection
+        .find('li.links-item')
+        .should('have.length', 6);
+
+        homePage.investorsItem.should('be.visible').and('have.text', 'INVESTORS')
+        homePage.cookiePolicyItem.should('be.visible').and('have.text', 'COOKIE POLICY')
+        homePage.openSourceItem.should('be.visible').and('have.text', 'OPEN SOURCE')
+        homePage.privacyNoticeItem.should('be.visible').and('have.text', 'APPLICANT PRIVACY NOTICE')
+        homePage.privacyPoliceItem.should('be.visible').and('have.text', 'PRIVACY POLICY')
+        homePage.webAccessItem.should('be.visible').and('have.text', 'WEB ACCESSIBILITY')
     });
 
     it('Verify the Locations items presence and switching between them', () => {
-        homePage
+    homePage
         .locationsList
         .children('div')
         .should('have.length', 3)
         
-        homePage.locationAmericas.should('be.visible').and('have.text', 'AMERICAS')
-        homePage.locationEMEA.should('be.visible').and('have.text', 'EMEA')
-        homePage.locationAPAC.should('be.visible').and('have.text', 'APAC')
+    homePage.locationAmericas.should('be.visible').and('have.text', 'AMERICAS')
+    homePage.locationEMEA.should('be.visible').and('have.text', 'EMEA')
+    homePage.locationAPAC.should('be.visible').and('have.text', 'APAC')
 
-        homePage.clickLocationEMEA().locationEMEA.invoke('attr', 'aria-selected').should('eq', 'true');
-        homePage.clickLocationAPAC().locationAPAC.invoke('attr', 'aria-selected').should('eq', 'true');
-        homePage.clickLocationAmericas().locationAmericas.invoke('attr', 'aria-selected').should('eq', 'true');
+    homePage.clickLocationEMEA().locationEMEA.invoke('attr', 'aria-selected').should('eq', 'true');
+    homePage.clickLocationAPAC().locationAPAC.invoke('attr', 'aria-selected').should('eq', 'true');
+    homePage.clickLocationAmericas().locationAmericas.invoke('attr', 'aria-selected').should('eq', 'true');
     });
 
     it('Verify search results are shown when enter a valid key-word', () => {
-        basePage
+        homePage
             .clickSearchIcon()
             .typeInSearchField('AI')
-            .clickFindButton();
-        homePage
+            .clickFindButton()
             .searchResults
             .should('be.visible')
             .find('article')
@@ -86,7 +91,7 @@ describe('UI Tests Epam', () => {
     });
 
     it('Check its impossible to submit the Contact us form without required fields fulfilled', () => {
-        basePage
+        homePage
             .clickContactUsButton()
         contactUsPage
             .clickSubmitButton()
@@ -105,7 +110,7 @@ describe('UI Tests Epam', () => {
     });
 
     it('Verify the company logo leads to the homepage', () => {
-        basePage
+        homePage
             .clickHamburgerMenuButton()
             .clickAboutMenuButton()
             .clickCompanyLogoButton()
@@ -114,7 +119,7 @@ describe('UI Tests Epam', () => {
     });
 
     it('Verify the ability to download report and its extention', () => {
-    basePage
+    homePage
         .aboutButton.click()
     aboutPage
         .downloadButton

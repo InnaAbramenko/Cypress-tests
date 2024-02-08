@@ -1,4 +1,6 @@
-class HomePage {
+import BasePage from "./BasePage";
+
+class HomePage extends BasePage {
   
     get investorsItem() {
         return cy.get("a[href='/investors']");

@@ -1,4 +1,6 @@
-class ContactUsPage {
+import BasePage from "./BasePage";
+
+class ContactUsPage extends BasePage {
 
     get submitButton() {
         return cy.get('.button-ui');

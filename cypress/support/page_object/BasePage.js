@@ -27,7 +27,7 @@ get uaLanguage() {
     return cy.get("ul.location-selector__list a[href='https://careers.epam.ua']")
 };
 get languageSwitcherUA() {
-    return cy.get(".div.location-selector-ui.header__control button.location-selector__button")
+    return cy.get("div.location-selector-ui.header__control button.location-selector__button")
 };
 get searchIcon() {
     return cy.get('.search-icon');
@@ -45,7 +45,11 @@ get contactUSButton() {
 
 get aboutButton() {
     return cy.get(':nth-child(4) > .top-navigation__item-text > .top-navigation__item-link')    
- }
+ };
+
+get policiesSection() {
+    return cy.get('.policies-links-wrapper')
+}
     
 open() {
     cy.visit('https://www.epam.com/')
