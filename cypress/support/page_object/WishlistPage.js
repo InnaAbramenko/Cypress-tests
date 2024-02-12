@@ -2,13 +2,6 @@ import ShopBasePage from "./ShopBasePage";
 
 class WishlistPage extends ShopBasePage {
 
-    get productInWishlist() {
-        return cy.get('.product > a');
-    };
-
-    get wishlistQtyInput() {
-        return cy.get('.qty-input');
-    };
 
     get removeFromWishlistCheckbox() {
         return cy.get('.remove-from-cart > input');

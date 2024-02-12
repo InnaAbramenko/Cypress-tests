@@ -12,7 +12,7 @@ class ShopComputerDesktopsPage extends ShopBasePage {
 
     get displayPerPageDropDown() {
         return cy.get('#products-pagesize');
-    }
+    };
 
     selectDropDownItem(item) {
         this.sortByDropDown.select(item);

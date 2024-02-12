@@ -1,4 +1,5 @@
 import ApparelShoesPage from "../../support/page_object/ApparelShoesPage";
+import CartPage from "../../support/page_object/CartPage";
 import ProductPage from "../../support/page_object/ProductPage";
 import ShopBasePage from "../../support/page_object/ShopBasePage";
 import ShopComputerDesktopsPage from "../../support/page_object/ShopComputerDesktopsPage";
@@ -18,6 +19,7 @@ describe('UI Tests', () => {
     const apparelShoesPage = new ApparelShoesPage();
     const productPage = new ProductPage();
     const wishListPage = new WishlistPage();
+    const cartPage = new CartPage();
 
     beforeEach(() => {
         shopHomePage
@@ -89,7 +91,7 @@ describe('UI Tests', () => {
 
     });
 
-    it.only('Verify the ability to add a product to the Wishlist', () => {
+    it('Verify the ability to add a product to the Wishlist', () => {
         shopHomePage
             .clickLoginIcon();
         shopLoginPage.emailField.type('inna_a9@email.com')
@@ -101,17 +103,33 @@ describe('UI Tests', () => {
             .clickPolkaDotTopProduct()
         productPage
             .clickAddToWishlistButton()
-            .addedToWishlistMessage.should('have.text', 'The product has been added to your wishlist')
+            .successNotification.should('have.text', 'The product has been added to your wishlist')
         productPage
             .clickWishlistIcon()
         wishListPage
-            .productInWishlist.should('be.visible').and("have.text", "50's Rockabilly Polka Dot Top JR Plus Size")
+            .cartProductName.should('be.visible').and("have.text", "50's Rockabilly Polka Dot Top JR Plus Size")
         wishListPage
-            .wishlistQtyInput.should('have.value', '1')
+            .qtyInput.should('have.value', '1')
         wishListPage
             .ckickRemoveFromWishlistCheckbox()
             .clickUpdateWishlistButton()
 
+    });
+
+    it('Check adding a product to the cart', () => {
+        shopHomePage
+            .clickApparelShoesMenuItem()
+        apparelShoesPage
+            .clickPolkaDotTopProduct()
+            cy.get('#add-to-cart-button-5').click()
+        productPage
+            .successNotification.should('have.text', 'The product has been added to your shopping cart')
+        productPage
+            .shoppingCartIcon.click()
+        cartPage
+            .cartProductName.should('be.visible').and("have.text", "50's Rockabilly Polka Dot Top JR Plus Size")
+        cartPage
+            .qtyInput.should('have.value', '1')
     })
 
 

@@ -6,7 +6,7 @@ class ProductPage extends ShopBasePage {
         return cy.get('#add-to-wishlist-button-5');
     };
 
-    get addedToWishlistMessage() {
+    get successNotification() {
         return cy.get('#bar-notification > p')
     };
 

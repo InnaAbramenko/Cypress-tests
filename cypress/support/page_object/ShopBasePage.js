@@ -72,6 +72,15 @@ class ShopBasePage {
         return cy.get('.ico-wishlist > .cart-label');
     };
 
+    get cartProductName() {
+        return cy.get('.product > a');
+    };
+
+    
+    get qtyInput() {
+        return cy.get('.qty-input');
+    };
+
     openDemoShop() {
         cy.visit('https://demowebshop.tricentis.com/')
         return this;
