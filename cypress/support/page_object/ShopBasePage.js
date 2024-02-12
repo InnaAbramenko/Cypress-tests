@@ -45,15 +45,31 @@ class ShopBasePage {
     };
 
     get desktopsListItem() {
-        return cy.get('.top-menu > :nth-child(2) > ul > li:nth-child(1)');
+        return cy.get('.top-menu > li > ul > li > [href="/desktops"]');
     };
 
     get notebooksListItem() {
-        return  cy.get('.top-menu > :nth-child(2) > ul > li:nth-child(2)');
+        return  cy.get('.top-menu > li > ul > li > [href="/notebooks"]');
     };
 
     get accessoriesListItem() {
-        return cy.get('.top-menu > :nth-child(2) > ul > li:nth-child(3)');
+        return cy.get('.top-menu > li > ul > li > [href="/accessories"]');
+    };
+
+    get computersMenuItem() {
+        return cy.get('.top-menu > li > [href="/computers"]');
+    };
+
+    get desktopsSubCategory() {
+        return cy.get('.sub-category-item > h2 > [href="/desktops"]');
+    };
+
+    get apparelShoesMenuItem() {
+        return cy.get('.top-menu > li > [href="/apparel-shoes"]');
+    };
+
+    get wishlistIcon() {
+        return cy.get('.ico-wishlist > .cart-label');
     };
 
     openDemoShop() {
@@ -69,7 +85,29 @@ class ShopBasePage {
     clickLoginIcon() {
         this.loginIcon.click();
         return this;
+    };
+
+    clickComputersMenuItem() {
+        this.computersMenuItem.click();
+        return this;
+    };
+
+    clickDesktopsSubCategory() {
+        this.desktopsSubCategory.click();
+        return this;
+    };
+
+    clickApparelShoesMenuItem() {
+        this.apparelShoesMenuItem.click();
+        return this;
+    };
+
+    clickWishlistIcon() {
+        this.wishListIcon.click();
+        return this;
     }
-}
+};
+
+
 
 export default ShopBasePage;
