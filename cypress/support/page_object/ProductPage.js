@@ -10,10 +10,19 @@ class ProductPage extends ShopBasePage {
         return cy.get('#bar-notification > p')
     };
 
+    get addToCartButton() {
+        return cy.get('#add-to-cart-button-5');
+    };
+
     clickAddToWishlistButton() {
         this.addToWishlistButton.click();
         return this;
     };
+
+    clickAddToCartButton() {
+        this.addToCartButton.click();
+        return this;
+    }
 
 }
 

@@ -1,5 +1,6 @@
 import ApparelShoesPage from "../../support/page_object/ApparelShoesPage";
 import CartPage from "../../support/page_object/CartPage";
+import CheckoutPage from "../../support/page_object/CheckoutPage";
 import ProductPage from "../../support/page_object/ProductPage";
 import ShopBasePage from "../../support/page_object/ShopBasePage";
 import ShopComputerDesktopsPage from "../../support/page_object/ShopComputerDesktopsPage";
@@ -20,6 +21,7 @@ describe('UI Tests', () => {
     const productPage = new ProductPage();
     const wishListPage = new WishlistPage();
     const cartPage = new CartPage();
+    const checkoutPage = new CheckoutPage();
 
     beforeEach(() => {
         shopHomePage
@@ -121,8 +123,8 @@ describe('UI Tests', () => {
             .clickApparelShoesMenuItem()
         apparelShoesPage
             .clickPolkaDotTopProduct()
-            cy.get('#add-to-cart-button-5').click()
         productPage
+            .clickAddToCartButton()
             .successNotification.should('have.text', 'The product has been added to your shopping cart')
         productPage
             .shoppingCartIcon.click()
@@ -130,6 +132,105 @@ describe('UI Tests', () => {
             .cartProductName.should('be.visible').and("have.text", "50's Rockabilly Polka Dot Top JR Plus Size")
         cartPage
             .qtyInput.should('have.value', '1')
+    });
+
+    it('Verify its possible to checkout a product', () => {
+        shopHomePage
+            .clickApparelShoesMenuItem()
+        apparelShoesPage
+            .clickPolkaDotTopProduct()
+        productPage
+            .clickAddToCartButton()
+            .shoppingCartIcon.click()
+        cartPage
+            .clickTermsOfServiceCheckbox()
+            .clickCheckoutButton()
+            .clickCheckoutAsGuestButton()
+        checkoutPage
+            .fillBillingAddress({
+            firstNameBilling: 'Inna',
+            lastNameBilling: 'Abramenko',
+            emailBilling: 'inna_a10@email.com',
+            country: 'United States',
+            state: 'Florida',
+            city: 'Orlando',
+            address: 'Green Street 55',
+            postalCode: '151515',
+            phoneNumber: '1234567890'
+        })
+        checkoutPage
+            .clickContinueBillingButton()
+            .clickContinueShippingAddressButton()
+            .clickSecondDayAirShippingMethod()
+            .clickContinueShippinfMethodButton()
+            .clickCreditCardOption()
+            .clickContinuePaymentMethodButton()
+        checkoutPage
+            .fillCardInfo({
+                creditCardTypeDropdown: 'Master card',
+                cardHolderNameInput: 'Inna Abramenko',
+                cardNumberInput: '5105105105105100',
+                expireMonthDropdown: '05',
+                expireYearDropdown: '2027',
+                cardCodeInput: '111'
+            })
+        checkoutPage
+            .clickContinuePaymentInfoButton()
+        checkoutPage
+            .orderReviewBlock.should('be.visible')
+        checkoutPage
+            .billingInfoTitle.should('be.visible').and('have.text', 'Billing Address')
+        checkoutPage
+            .billingInfoName.should('be.visible').contains('Inna Abramenko')
+        checkoutPage
+            .billingInfoEmail.should('be.visible').contains('inna_a10@email.com')
+        checkoutPage
+            .billingInfoPhone.should('be.visible').contains('1234567890')
+        checkoutPage
+            .billingInfoAddress1.should('be.visible').contains('Green Street 55')
+        checkoutPage
+            .billingInfoPostalCode.should('be.visible').contains('Orlando , Florida 151515')
+        checkoutPage
+            .billingInfoCountry.should('be.visible').contains('United States')
+        checkoutPage
+            .billingInfoPaymentMethodTitle.should('be.visible').contains('Payment Method')
+        checkoutPage
+            .billingInfoPaymentMethod.should('be.visible').contains('Credit Card') 
+        checkoutPage
+            .shippingAddressTitle.should('be.visible').contains('Shipping Address')
+        checkoutPage
+            .shippingInfoName.should('be.visible').contains('Inna Abramenko')
+        checkoutPage
+            .shippingInfoEmail.should('be.visible').contains('inna_a10@email.com')
+        checkoutPage
+            .shippingInfoPhone.should('be.visible').contains('1234567890')
+        checkoutPage
+            .shippingInfoAdress1.should('be.visible').contains('Green Street 55')
+        checkoutPage
+            .shippingInfoCity.should('be.visible').contains('Orlando , Florida 151515')
+        checkoutPage
+            .shippingInfoCountry.should('be.visible').contains('United States')
+        checkoutPage
+            .shippingMethodTitle.should('be.visible').contains('Shipping Method')
+        checkoutPage
+            .shippingMethod.should('be.visible').contains('2nd Day Air')
+        checkoutPage
+            .clickContinueConfirmOrderButton()
+            .successOrderBlock.should('be.visible')
+        checkoutPage
+            .clickOrderDetailsLink()
+            .orderPageTitle.should('be.visible').and('have.text', 'Order information')
+        checkoutPage
+            .orderSubTotal.should('be.visible').and('contain', '11.00')
+        checkoutPage
+            .shippingAmount.should('be.visible').and('contain', '20.00')
+        checkoutPage
+            .orderTotal.should('be.visible').and('contain', '31.00')
+        checkoutPage
+            .orderProductName.should('be.visible').and("have.text", "50's Rockabilly Polka Dot Top JR Plus Size")
+            
+
+
     })
 
 
