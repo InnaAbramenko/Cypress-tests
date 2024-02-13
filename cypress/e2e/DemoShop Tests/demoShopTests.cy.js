@@ -118,7 +118,7 @@ describe('UI Tests', () => {
 
     });
 
-    it('Check adding a product to the cart', () => {
+    it('Check adding a product to the cart and removing it', () => {
         shopHomePage
             .clickApparelShoesMenuItem()
         apparelShoesPage
@@ -131,7 +131,15 @@ describe('UI Tests', () => {
         cartPage
             .cartProductName.should('be.visible').and("have.text", "50's Rockabilly Polka Dot Top JR Plus Size")
         cartPage
-            .qtyInput.should('have.value', '1')
+            .qtyInput.should('have.value', '1');
+        cartPage
+            .clickRemoveFromCartCheckbox()
+            .clickUpdateCartButton()
+        cartPage
+            .emptyCartMessage.should('contain', 'Your Shopping Cart is empty!')
+        cartPage
+            .cartIconQuantity.should('have.text', '(0)')
+
     });
 
     it('Verify its possible to checkout a product', () => {

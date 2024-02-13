@@ -1,3 +1,4 @@
+//import { throttle } from "cypress/types/lodash";
 import ShopBasePage from "./ShopBasePage";
 
 class CartPage extends ShopBasePage {
@@ -12,7 +13,23 @@ class CartPage extends ShopBasePage {
 
     get checkoutAsGuestButton() {
         return cy.get('.checkout-as-guest-button');
-    }
+    };
+
+    get removeFromCartCheckbox() {
+        return cy.get('.remove-from-cart > input')
+    };
+
+    get updateCartButton() {
+        return cy.get('.update-cart-button')
+    };
+
+    get emptyCartMessage() {
+        return cy.get('.order-summary-content')
+    };
+
+    get cartIconQuantity() {
+        return cy.get('.cart-qty')
+    };
 
     clickTermsOfServiceCheckbox() {
         this.termsOfServiceCheckbox.click();
@@ -26,6 +43,16 @@ class CartPage extends ShopBasePage {
 
     clickCheckoutAsGuestButton() {
         this.checkoutAsGuestButton.click();
+        return this;
+    };
+
+    clickRemoveFromCartCheckbox() {
+        this.removeFromCartCheckbox.click();
+        return this;
+    };
+
+    clickUpdateCartButton() {
+        this.updateCartButton.click();
         return this;
     }
 
