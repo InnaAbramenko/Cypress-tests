@@ -35,7 +35,7 @@ get searchIcon() {
 get searchInputField() {
     return cy.get('#new_form_search');
 };
-get findButton() {
+get findButton() { // todo: заважкий локатор  - скороти до button.custom-search-button
     return cy.get('.custom-button.button-text.font-900.gradient-border-button.large-gradient-button.uppercase-text.custom-search-button');
 };
 
