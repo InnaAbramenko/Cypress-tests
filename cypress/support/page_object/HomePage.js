@@ -2,32 +2,12 @@ import BasePage from "./BasePage";
 
 class HomePage extends BasePage {
   
-    get investorsItem() {
-        return cy.get("a[href='/investors']");
-    };
-    get cookiePolicyItem() {
-        return cy.get("a[href='/cookie-policy']");
-    };
-    get openSourceItem() {
-        return cy.get("div.policies a[href='/services/engineering/open-source']");
-    };
-    get privacyNoticeItem() {
-        return cy.get("a[href='/applicant-privacy-notice']");
-    };
-    get privacyPoliceItem() {
-        return cy.get("div.policies a[href='https://privacy.epam.com/core/interaction/showpolicy?type=CommonPrivacyPolicy']");
-    };
-    get webAccessItem() {
-        return cy.get("a[href='/web-accessibility-statement']");
-    };
-
     get locationsList() {
-        //return cy.get('.tabs-23__ul.js-tabs-links-list');
         return cy.get('.js-tabs-title');
     };
     
     get locationAmericas() {
-        return cy.get('.tabs-23__title.active > .tabs-23__link');
+        return cy.get(':nth-child(1) > .tabs-23__link');
     };
     get locationEMEA() {
         return cy.get(':nth-child(2) > .tabs-23__link');
@@ -36,7 +16,7 @@ class HomePage extends BasePage {
         return cy.get(':nth-child(3) > .tabs-23__link');
     };
     get searchResults() {
-        return cy.get('div.search-results__items');
+        return cy.get('div.search-results__items article');
 
     };
     clickLocationEMEA() {
