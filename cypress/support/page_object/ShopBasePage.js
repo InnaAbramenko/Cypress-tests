@@ -1,10 +1,15 @@
+import ApparelShoesPage from "./ApparelShoesPage";
+import CartPage from "./CartPage";
+import ShopComputerDesktopsPage from "./ShopComputerDesktopsPage";
+import WishlistPage from "./WishlistPage";
+
 class ShopBasePage {
 
-    get registerIcon() {
+    get registerLink() {
         return cy.get('.ico-register');
     };
 
-    get loginIcon() {
+    get loginLink() {
         return cy.get('.ico-login')
     };
 
@@ -24,19 +29,19 @@ class ShopBasePage {
         return cy.get('#Password');
     };
 
-    get accountIcon() {
+    get accountLink() {
         return cy.get('.header-links .account');
     };
 
-    get logoutIcon() {
+    get logoutLink() {
         return cy.get('.ico-logout');
     };
 
-    get shoppingCartIcon() {
+    get shoppingCartLink() {
         return cy.get('.ico-cart > .cart-label');
     };
 
-    get wishListIcon() {
+    get wishListLink() {
         return cy.get('.ico-wishlist > .cart-label');
     };
 
@@ -86,15 +91,20 @@ class ShopBasePage {
         return this;
     };
 
-    clickRegisterIcon() {
-        this.registerIcon.click();
+    clickRegisterLink() {
+        this.registerLink.click();
         return this;
     };
 
-    clickLoginIcon() {
-        this.loginIcon.click();
+    clickLoginLink() {
+        this.loginLink.click();
         return this;
     };
+
+    clickAccounLink() {
+        this.accountLink.click();
+        return this;
+    }
 
     clickComputersMenuItem() {
         this.computersMenuItem.click();
@@ -103,18 +113,45 @@ class ShopBasePage {
 
     clickDesktopsSubCategory() {
         this.desktopsSubCategory.click();
-        return this;
+        return new ShopComputerDesktopsPage();
     };
 
     clickApparelShoesMenuItem() {
         this.apparelShoesMenuItem.click();
+        return new ApparelShoesPage();
+    };
+
+    clickWishlistLink() {
+        this.wishListLink.click();
+        return new WishlistPage();
+    };
+
+    clickShoppingCartLink() {
+        this.shoppingCartLink.click();
+        return new CartPage();
+    };
+
+    fillInFirstNameField(param) {
+        this.firstNameField.type(param);
         return this;
     };
 
-    clickWishlistIcon() {
-        this.wishListIcon.click();
+    fillInLastNameField(param) {
+        this.lastNameField.type(param);
         return this;
-    }
+    };
+
+    fillInEmailField(param) {
+        this.emailField.type(param);
+        return this;
+    };
+
+    fillInPasswordField(param) {
+        this.passwordField.type(param);
+        return this;
+    };
+
+    
 };
 
 

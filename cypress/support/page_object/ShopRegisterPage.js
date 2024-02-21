@@ -3,7 +3,6 @@ import ShopBasePage from "./ShopBasePage";
 class ShopRegisterPage extends ShopBasePage {
 
 
-
     get confirmPasswordField() {
         return cy.get('#ConfirmPassword');
     };
@@ -19,7 +18,15 @@ class ShopRegisterPage extends ShopBasePage {
     clickRegisterButton() {
         this.registerButton.click();
         return this;
-    }
+    };
+
+    fillInConfirmPasswordField(param) {
+        this.confirmPasswordField.type(param);
+        return this;
+    };
+
+    
+
 
 };
 

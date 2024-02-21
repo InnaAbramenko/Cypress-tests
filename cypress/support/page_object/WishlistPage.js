@@ -1,6 +1,6 @@
-import ShopBasePage from "./ShopBasePage";
+// import ShopBasePage from "./ShopBasePage";
 
-class WishlistPage extends ShopBasePage {
+class WishlistPage {
 
 
     get removeFromWishlistCheckbox() {
