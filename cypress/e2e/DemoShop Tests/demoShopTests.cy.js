@@ -56,9 +56,9 @@ describe('UI Tests', () => {
     it.only('Verify user login', () => {
         shopHomePage
             .clickLoginLink(); //todo невірний ретурн в методі
-        shopLoginPage.fillInEmailField('inna_a9@email.com')
-        shopLoginPage.fillInPasswordField('testpassword1')
         shopLoginPage
+            .fillInEmailField('inna_a9@email.com')
+            .fillInPasswordField('testpassword1')
             .clickLoginButton(); //todo невірний ретурн в методі
         shopHomePage.accountLink.should('have.text', 'inna_a9@email.com')
         shopHomePage.logoutLink.should('have.text', 'Log out')
