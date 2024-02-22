@@ -136,10 +136,15 @@ describe('PetsStore API tests', () => {
 
     });
 
-    it('Uploading image for a pet', () => {
+    it.only('Uploading image for a pet', () => {
         cy.visit('https://petstore.swagger.io/#/');
-        cy.fixture('Cat Black.jpg', null).as('myCatImage');
-cy.get('input[type=file]').selectFile('@myCatImage')
+        cy.get('#operations-pet-uploadFile > .opblock-summary').click()
+        cy.get('.try-out > .btn').click()
+        cy.get('[data-param-name="petId"] > .parameters-col_description > input').type('12')
+        cy.get('[data-param-name="file"] > .parameters-col_description > input').attachFile('Cat Black.jpg')
+        cy.get('.execute-wrapper > .btn').click()
+        
+       
         });
 
         it('Verify deleting of a pet', () => {

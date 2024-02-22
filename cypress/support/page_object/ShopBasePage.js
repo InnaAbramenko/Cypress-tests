@@ -1,10 +1,15 @@
+import ApparelShoesPage from "./ApparelShoesPage";
+import CartPage from "./CartPage";
+import ShopComputerDesktopsPage from "./ShopComputerDesktopsPage";
+
+
 class ShopBasePage {
 
-    get registerIcon() {
+    get registerLink() {
         return cy.get('.ico-register');
     };
 
-    get loginIcon() {
+    get loginLink() {
         return cy.get('.ico-login')
     };
 
@@ -24,19 +29,19 @@ class ShopBasePage {
         return cy.get('#Password');
     };
 
-    get accountIcon() {
+    get accountLink() {
         return cy.get('.header-links .account');
     };
 
-    get logoutIcon() {
+    get logoutLink() {
         return cy.get('.ico-logout');
     };
 
-    get shoppingCartIcon() {
+    get shoppingCartLink() {
         return cy.get('.ico-cart > .cart-label');
     };
 
-    get wishListIcon() {
+    get wishListLink() {
         return cy.get('.ico-wishlist > .cart-label');
     };
 
@@ -81,40 +86,72 @@ class ShopBasePage {
         return cy.get('.qty-input');
     };
 
+    get resultBlock() {
+        return cy.get('.result');
+    };
+
     openDemoShop() {
         cy.visit('https://demowebshop.tricentis.com/')
         return this;
     };
 
-    clickRegisterIcon() {
-        this.registerIcon.click();
-        return this;
+    clickRegisterLink() {
+        this.registerLink.click();
+        
     };
 
-    clickLoginIcon() {
-        this.loginIcon.click();
-        return this;
+    clickLoginLink() {
+        this.loginLink.click();
     };
+
+    clickAccounLink() {
+        this.accountLink.click();
+    }
 
     clickComputersMenuItem() {
         this.computersMenuItem.click();
-        return this;
     };
 
     clickDesktopsSubCategory() {
         this.desktopsSubCategory.click();
-        return this;
+        return new ShopComputerDesktopsPage();
     };
 
     clickApparelShoesMenuItem() {
         this.apparelShoesMenuItem.click();
+        return new ApparelShoesPage();
+    };
+
+    clickWishlistLink() {
+        this.wishListLink.click();
+    };
+
+    clickShoppingCartLink() {
+        this.shoppingCartLink.click();
+        return new CartPage();
+    };
+
+    fillInFirstNameField(param) {
+        this.firstNameField.type(param);
         return this;
     };
 
-    clickWishlistIcon() {
-        this.wishListIcon.click();
+    fillInLastNameField(param) {
+        this.lastNameField.type(param);
         return this;
-    }
+    };
+
+    fillInEmailField(param) {
+        this.emailField.type(param);
+        return this;
+    };
+
+    fillInPasswordField(param) {
+        this.passwordField.type(param);
+        return this;
+    };
+
+    
 };
 
 

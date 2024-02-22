@@ -1,13 +1,13 @@
-import ShopBasePage from "./ShopBasePage";
+// import ShopBasePage from "./ShopBasePage";
 
-class ShopComputerDesktopsPage extends ShopBasePage {
+class ShopComputerDesktopsPage {
 
     get sortByDropDown() {
         return cy.get('#products-orderby');
     };
 
-    get productsList() {
-        return cy.get('.item-box');
+    get productsTitle() {
+        return cy.get('.product-title a');
     };
 
     get displayPerPageDropDown() {

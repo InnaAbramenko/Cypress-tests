@@ -1,3 +1,5 @@
+
+
 import ShopBasePage from "./ShopBasePage";
 
 class WishlistPage extends ShopBasePage {

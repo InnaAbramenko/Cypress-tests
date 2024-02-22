@@ -1,14 +1,14 @@
-import ShopBasePage from "./ShopBasePage";
+// import ShopBasePage from "./ShopBasePage";
 
-class ApparelShoesPage extends ShopBasePage {
+class ApparelShoesPage {
 
-    get polkaDotTopProduct() {
-        return cy.get('.product-grid > :nth-child(1)');
-    };
 
-    clickPolkaDotTopProduct() {
-        this.polkaDotTopProduct.click();
-        return this;
+    get apparelShoesProduct() {
+        return cy.get(".product-title a")
+    }
+
+    clickFirstProduct() {
+        this.apparelShoesProduct.first().click();
     }
 
 }

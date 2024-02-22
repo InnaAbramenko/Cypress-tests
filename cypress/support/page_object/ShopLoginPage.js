@@ -8,7 +8,6 @@ class ShopLoginPage extends ShopBasePage {
 
     clickLoginButton() {
         this.loginButton.click();
-        return this;
     }
 
 

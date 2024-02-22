@@ -29,54 +29,55 @@ describe('UI Tests', () => {
     });
 
     it('Verify new user registration', () => {
+        const randomNumber = Math.floor(Math.random() * 1000) + 1;
+        const email = `inna_a${randomNumber}@email.com`;
+        const password = `TestPassword${randomNumber}`
         shopHomePage
-            .clickRegisterIcon(); //todo це не icon, а link, і метод повертає невірну сторінку
-        shopRegisterPage.firstNameField.type('TestName1') //todo Спробуй зробити параметризовані методи заповнення кожного поля, і щоб використовувався чейн
-        shopRegisterPage.lastNameField.type('TestSurname1') //todo Ці поля у тебе чомусь не в РегістерПейдж, а в хоумПейдж. Чому?
-        shopRegisterPage.emailField.type('inna_a10@email.com') // todo Цей тест у тебе пройде пасом лише раз, отже щоб він ранався на постійній основі, тобі варто першу частину обирати рандомну,
-        shopRegisterPage.passwordField.type('testpassword1')//todo щоб кожного разу генерувалася рандомна стрінга і помістити її в константу, для перевірки стрічки 47
-        shopRegisterPage.confirmPasswordField.type('testpassword1')
+            .clickRegisterLink()
         shopRegisterPage
+            .fillInFirstNameField('TestName1')
+            .fillInLastNameField('TestSurname1')
+            .fillInEmailField(email)
+            .fillInPasswordField(password)
+            .fillInConfirmPasswordField(password)
             .clickRegisterButton();
-        shopRegisterPage //todo попередній метод у тебе має ретурн зис, тож можеш продовжувати чейн
-            .resultBlock.contains('Your registration completed')
-        shopCustomerPage //todo Ти клікаєш не на Кастомер пейджі, а на хоум, до того ж локатор у тебе на хоумі, а клік чомусь вже на кастомер
-            .clickAccountIcon();// todo це не айкон, а лінк. Цей метод має бути на ХоумПейдж і повертати Кастомер Пейдж, продовжуй чейн
+        shopHomePage.resultBlock.contains('Your registration completed')
+        shopHomePage
+            .clickAccounLink();
         shopCustomerPage.firstNameField.should('have.value', 'TestName1')
         shopCustomerPage.lastNameField.should('have.value', 'TestSurname1')
-        shopCustomerPage.emailField.should('have.value', 'inna_a10@email.com')
+        shopCustomerPage.emailField.should('have.value', email)
     });
 
     it('Verify user login', () => {
         shopHomePage
-            .clickLoginIcon(); //todo невірний ретурн в методі
-        shopLoginPage.emailField.type('inna_a9@email.com')
-        shopLoginPage.passwordField.type('testpassword1')
+            .clickLoginLink();
         shopLoginPage
-            .clickLoginButton(); //todo невірний ретурн в методі
-        shopHomePage.accountIcon.should('have.text', 'inna_a9@email.com')
-        shopHomePage.logoutIcon.should('have.text', 'Log out')
-        shopHomePage.shoppingCartIcon.should('have.text', 'Shopping cart')//todo це не icon, а link
-        shopHomePage.wishListIcon.should('have.text', 'Wishlist')//todo це не icon, а link
+            .fillInEmailField('inna_a9@email.com')
+            .fillInPasswordField('testpassword1')
+            .clickLoginButton();
+        shopHomePage.accountLink.should('have.text', 'inna_a9@email.com')
+        shopHomePage.logoutLink.should('have.text', 'Log out')
+        shopHomePage.shoppingCartLink.should('have.text', 'Shopping cart')
+        shopHomePage.wishListLink.should('have.text', 'Wishlist')
 
     });
 
     it('Verify that ‘Computers’ group has 3 sub-groups with correct names', () => {
-        shopHomePage.computersMenuItem.trigger("mouseover") //todo додала використання наведення курсора
-            .parent().find("li").should('have.length', 3) //todo і далі тут же шукай контейнз текст, ті всі локатори нижче непотрібні
-        shopHomePage.computersList.should('have.length', 3) //todo В дом-дереві цей список є, але тобі перевірити його на юайці, для цього використай mouseover
-        shopHomePage.desktopsListItem.contains('Desktops')
-        shopHomePage.notebooksListItem.contains('Notebooks')
-        shopHomePage.accessoriesListItem.contains('Accessories')
+        shopHomePage.computersMenuItem.trigger("mouseover")
+            .parent()
+            .find("li")
+            .should('have.length', 3)
+        shopHomePage.computersList.contains('Desktops').trigger("mouseover").should('be.visible')
+        shopHomePage.computersList.contains('Notebooks').trigger("mouseover").should('be.visible')
+        shopHomePage.computersList.contains('Accessories').trigger("mouseover").should('be.visible')
     });
 
     it('Check sorting option "Name: A to Z" on the products list page', () => {
-        shopHomePage
-            .clickComputersMenuItem()
-            .clickDesktopsSubCategory() //todo невірний ретурн
-        shopComputerDesktopPage
-            .selectDropDownItem('Name: A to Z')
-            .productsList //todo Тут тобі не потрібен список продуктів, бо в ньому і текст, і рейтинг , і картинки. А ти перевіряєш лише назви, тобто ".product-title a"
+        shopHomePage.computersMenuItem.trigger("mouseover")
+        shopHomePage.computersList.contains('Desktops').trigger("mouseover").click();
+        shopComputerDesktopPage.selectDropDownItem('Name: A to Z')
+            .productsTitle
             .then(items => {
           const unsortedItems = items.map((index, html) => Cypress.$(html).text()).get();
           const sortedItems = unsortedItems.slice().sort();
@@ -85,47 +86,33 @@ describe('UI Tests', () => {
     });
 
     it('Check the ability to change number of product items on the page', () => {
-        shopHomePage
-            .clickComputersMenuItem()
-            .clickDesktopsSubCategory()
+        shopHomePage.computersMenuItem.trigger("mouseover")
+        shopHomePage.computersList.contains('Desktops').trigger("mouseover").click();
         shopComputerDesktopPage
             .selectDisplayPerPageDropDownItem('4')
-            .productsList.should('have.length', 4)
+            .productsTitle.should('have.length', 4)
             
 
     });
 
     it('Verify the ability to add a product to the Wishlist', () => {
         shopHomePage
-            .clickLoginIcon();
+            .clickLoginLink();
         shopLoginPage.emailField.type('inna_a9@email.com')
         shopLoginPage.passwordField.type('testpassword1')
         shopLoginPage
             .clickLoginButton()
-            .clickApparelShoesMenuItem() //todo невірний ретурн
-        apparelShoesPage
-            .clickPolkaDotTopProduct() // todo якщо товар зміниться, то ця назва буде неактуально, варто назвати його просто перший в списку без конкретики, і я б використовувала локатор (.product-title a).first()
-        //todo . Невірний ретурн .
+        shopHomePage.clickApparelShoesMenuItem()
+            .apparelShoesProduct.first().invoke("text").then(itemName => {
+            apparelShoesPage.clickFirstProduct();
+            productPage
+                .clickAddToWishlistButton()
+                .successNotification.should('have.text', 'The product has been added to your wishlist')
         productPage
-            .clickAddToWishlistButton()
-            .successNotification.should('have.text', 'The product has been added to your wishlist')
-        productPage
-            .clickWishlistIcon() //todo невірний ретурн
+                .clickWishlistLink()
         wishListPage
-            .cartProductName.should('be.visible').and("have.text", "50's Rockabilly Polka Dot Top JR Plus Size")
-
-        // //todo Не використовуй хард код(строка 115), бо назва продукту динамічна і тест не пройде. Тобі варто зберегти назву першого айтему у змінну і потім звіряти її з тою, що буде у вішлісті.
-        // //todo  Ось один з варіантів як можна (замість стрічок 106-115 - строки 119-128, локатор - то першого айтему, його треба занести в ПОМ:
-        // cy.get(".product-title a").first().invoke("text").then(itemName => {
-        //     cy.get(".product-title a").first().click();
-        //     productPage
-        //         .clickAddToWishlistButton()
-        //         .successNotification.should('have.text', 'The product has been added to your wishlist')
-        //     productPage
-        //         .clickWishlistIcon() //todo невірний ретурн
-        //     wishListPage
-        //         .cartProductName.should('be.visible').and("include.text", itemName)
-        // })
+                .cartProductName.should('be.visible').and("include.text", itemName)
+        })
         wishListPage
             .qtyInput.should('have.value', '1')
         wishListPage
@@ -137,15 +124,15 @@ describe('UI Tests', () => {
     it('Check adding a product to the cart and removing it', () => {
         shopHomePage
             .clickApparelShoesMenuItem()
+            .apparelShoesProduct.first().invoke("text").then(itemName => {
         apparelShoesPage
-            .clickPolkaDotTopProduct()
+            .clickFirstProduct()
         productPage
             .clickAddToCartButton()
             .successNotification.should('have.text', 'The product has been added to your shopping cart')
-        productPage
-            .shoppingCartIcon.click()
-        cartPage
-            .cartProductName.should('be.visible').and("have.text", "50's Rockabilly Polka Dot Top JR Plus Size")
+        productPage.clickShoppingCartLink()
+            .cartProductName.should('be.visible').and("include.text", itemName)
+            })
         cartPage
             .qtyInput.should('have.value', '1');
         cartPage
@@ -160,13 +147,11 @@ describe('UI Tests', () => {
 
     it('Verify its possible to checkout a product', () => {
         shopHomePage
-            .clickApparelShoesMenuItem() //todo використовуй чейн і там де це тобі непотрібно, то не екстендься від Бейз Пейдж, в такому разі без першкод використовуватимеш чейн
-        apparelShoesPage
-            .clickPolkaDotTopProduct()
+            .clickApparelShoesMenuItem()
+            .clickFirstProduct()
         productPage
             .clickAddToCartButton()
-            .shoppingCartIcon.click() //todo зроби метод кліку в ПОМ з вірним ретурном
-        cartPage
+            .clickShoppingCartLink()
             .clickTermsOfServiceCheckbox()
             .clickCheckoutButton()
             .clickCheckoutAsGuestButton()
