@@ -9,7 +9,6 @@ class ApparelShoesPage {
 
     clickFirstProduct() {
         this.apparelShoesProduct.first().click();
-        return this;
     }
 
 }

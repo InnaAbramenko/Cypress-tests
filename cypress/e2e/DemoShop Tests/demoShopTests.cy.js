@@ -33,8 +33,7 @@ describe('UI Tests', () => {
         const email = `inna_a${randomNumber}@email.com`;
         const password = `TestPassword${randomNumber}`
         shopHomePage
-            .clickRegisterLink() //todo метод повертає невірну сторінку
-        //shopRegisterPage - Якщо повертати регістерпейдж, то не можу викликати з неї методи що знаходяться в бейзпейдж(це .fillInFirstNameField, .fillInLastNameField, .fillInEmailField, .fillInPasswordField)
+            .clickRegisterLink()
         shopRegisterPage
             .fillInFirstNameField('TestName1')
             .fillInLastNameField('TestSurname1')
@@ -42,24 +41,21 @@ describe('UI Tests', () => {
             .fillInPasswordField(password)
             .fillInConfirmPasswordField(password)
             .clickRegisterButton();
-        //todo Ці поля у тебе чомусь не в РегістерПейдж, а в хоумПейдж. Чому? - це одні і тіж самі елементи(мають однакові локатори) на сторінці логіну, реєстрації і кастомер пейдж, тому я їх всі додала в бейз пейдж
-    
-        //todo попередній метод у тебе має ретурн зис, тож можеш продовжувати чейн - тут не виходить зробити чейн, якщо роблю таким чином resultBlock.contains('Your registration completed') - мені видає помилку в тесті - "result block is not defined"
-        shopRegisterPage.resultBlock.contains('Your registration completed')
-        shopHomePage //todo Ти клікаєш не на Кастомер пейджі, а на хоум, до того ж локатор у тебе на хоумі, а клік чомусь вже на кастомер - після реєстраціїї юзер знаходиться на сторінці https://demowebshop.tricentis.com/registerresult/1 - вона відноситься до хоумпейджі? Я так розумію це окрема сторінка і потрібно додати її окремо?
-            .clickAccounLink();// Цей метод має бути на ХоумПейдж і повертати Кастомер Пейдж, продовжуй чейн - перенесла метод в бейз пейдж, але залишила поки return this, так як якщо я повертаю кастомер в цьому методі я не можу зробити наслідування для кастомер пейдж, правильно? А поля firstNameField, lastNameField і emailField - це одні і тіж самі елементи на сторінці логіну, реєстрації і кастомер пейдж, тому я їх всі додала в бейз пейдж
+        shopHomePage.resultBlock.contains('Your registration completed')
+        shopHomePage
+            .clickAccounLink();
         shopCustomerPage.firstNameField.should('have.value', 'TestName1')
         shopCustomerPage.lastNameField.should('have.value', 'TestSurname1')
         shopCustomerPage.emailField.should('have.value', email)
     });
 
-    it.only('Verify user login', () => {
+    it('Verify user login', () => {
         shopHomePage
-            .clickLoginLink(); //todo невірний ретурн в методі
+            .clickLoginLink();
         shopLoginPage
             .fillInEmailField('inna_a9@email.com')
             .fillInPasswordField('testpassword1')
-            .clickLoginButton(); //todo невірний ретурн в методі
+            .clickLoginButton();
         shopHomePage.accountLink.should('have.text', 'inna_a9@email.com')
         shopHomePage.logoutLink.should('have.text', 'Log out')
         shopHomePage.shoppingCartLink.should('have.text', 'Shopping cart')
@@ -78,10 +74,9 @@ describe('UI Tests', () => {
     });
 
     it('Check sorting option "Name: A to Z" on the products list page', () => {
-        shopHomePage
-            .clickComputersMenuItem()
-            .clickDesktopsSubCategory()
-            .selectDropDownItem('Name: A to Z')
+        shopHomePage.computersMenuItem.trigger("mouseover")
+        shopHomePage.computersList.contains('Desktops').trigger("mouseover").click();
+        shopComputerDesktopPage.selectDropDownItem('Name: A to Z')
             .productsTitle
             .then(items => {
           const unsortedItems = items.map((index, html) => Cypress.$(html).text()).get();
@@ -91,9 +86,8 @@ describe('UI Tests', () => {
     });
 
     it('Check the ability to change number of product items on the page', () => {
-        shopHomePage
-            .clickComputersMenuItem()
-            .clickDesktopsSubCategory()
+        shopHomePage.computersMenuItem.trigger("mouseover")
+        shopHomePage.computersList.contains('Desktops').trigger("mouseover").click();
         shopComputerDesktopPage
             .selectDisplayPerPageDropDownItem('4')
             .productsTitle.should('have.length', 4)
@@ -108,19 +102,18 @@ describe('UI Tests', () => {
         shopLoginPage.passwordField.type('testpassword1')
         shopLoginPage
             .clickLoginButton()
-            .clickApparelShoesMenuItem()
-        apparelShoesPage
+        shopHomePage.clickApparelShoesMenuItem()
             .apparelShoesProduct.first().invoke("text").then(itemName => {
             apparelShoesPage.clickFirstProduct();
             productPage
                 .clickAddToWishlistButton()
                 .successNotification.should('have.text', 'The product has been added to your wishlist')
-            productPage
-                .clickWishlistLink() //todo невірний ретурн - змінила, але з вішліст сторінки я викликала перевірку елементів з бейзпейдж(строки 114 та 117), тепер змінила там вішлістпейдж на хоумпейдж - чи правильно це?
-            shopHomePage
+        productPage
+                .clickWishlistLink()
+        wishListPage
                 .cartProductName.should('be.visible').and("include.text", itemName)
         })
-        shopHomePage
+        wishListPage
             .qtyInput.should('have.value', '1')
         wishListPage
             .ckickRemoveFromWishlistCheckbox()

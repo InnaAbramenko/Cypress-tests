@@ -1,7 +1,7 @@
 import ApparelShoesPage from "./ApparelShoesPage";
 import CartPage from "./CartPage";
 import ShopComputerDesktopsPage from "./ShopComputerDesktopsPage";
-import WishlistPage from "./WishlistPage";
+
 
 class ShopBasePage {
 
@@ -86,6 +86,10 @@ class ShopBasePage {
         return cy.get('.qty-input');
     };
 
+    get resultBlock() {
+        return cy.get('.result');
+    };
+
     openDemoShop() {
         cy.visit('https://demowebshop.tricentis.com/')
         return this;
@@ -93,22 +97,19 @@ class ShopBasePage {
 
     clickRegisterLink() {
         this.registerLink.click();
-        return this;
+        
     };
 
     clickLoginLink() {
         this.loginLink.click();
-        return this;
     };
 
     clickAccounLink() {
         this.accountLink.click();
-        return this;
     }
 
     clickComputersMenuItem() {
         this.computersMenuItem.click();
-        return this;
     };
 
     clickDesktopsSubCategory() {
@@ -123,7 +124,6 @@ class ShopBasePage {
 
     clickWishlistLink() {
         this.wishListLink.click();
-        return new WishlistPage();
     };
 
     clickShoppingCartLink() {

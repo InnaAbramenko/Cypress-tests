@@ -11,13 +11,8 @@ class ShopRegisterPage extends ShopBasePage {
         return cy.get('#register-button');
     };
 
-    get resultBlock() {
-        return cy.get('.result');
-    };
-
     clickRegisterButton() {
         this.registerButton.click();
-        return this;
     };
 
     fillInConfirmPasswordField(param) {
