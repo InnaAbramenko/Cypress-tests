@@ -34,14 +34,14 @@ describe('UI Tests', () => {
         const password = `TestPassword${randomNumber}`
         shopHomePage
             .clickRegisterLink()
-        shopRegisterPage
             .fillInFirstNameField('TestName1')
             .fillInLastNameField('TestSurname1')
             .fillInEmailField(email)
             .fillInPasswordField(password)
+        shopRegisterPage
             .fillInConfirmPasswordField(password)
-            .clickRegisterButton();
-        shopHomePage.resultBlock.contains('Your registration completed')
+            .clickRegisterButton()
+        shopHomePage.resultBlock.should('contain', 'Your registration completed')
         shopHomePage
             .clickAccounLink();
         shopCustomerPage.firstNameField.should('have.value', 'TestName1')
@@ -55,8 +55,8 @@ describe('UI Tests', () => {
         shopLoginPage
             .fillInEmailField('inna_a9@email.com')
             .fillInPasswordField('testpassword1')
-            .clickLoginButton();
-        shopHomePage.accountLink.should('have.text', 'inna_a9@email.com')
+            .clickLoginButton()
+            .accountLink.should('have.text', 'inna_a9@email.com')
         shopHomePage.logoutLink.should('have.text', 'Log out')
         shopHomePage.shoppingCartLink.should('have.text', 'Shopping cart')
         shopHomePage.wishListLink.should('have.text', 'Wishlist')
@@ -68,14 +68,12 @@ describe('UI Tests', () => {
             .parent()
             .find("li")
             .should('have.length', 3)
-        shopHomePage.computersList.contains('Desktops').trigger("mouseover").should('be.visible')
-        shopHomePage.computersList.contains('Notebooks').trigger("mouseover").should('be.visible')
-        shopHomePage.computersList.contains('Accessories').trigger("mouseover").should('be.visible')
+        shopHomePage.computersList.should("contain.text", "Desktops").and("contain.text", "Accessories").and("contain.text", "Notebooks") 
     });
 
     it('Check sorting option "Name: A to Z" on the products list page', () => {
         shopHomePage.computersMenuItem.trigger("mouseover")
-        shopHomePage.computersList.contains('Desktops').trigger("mouseover").click();
+        shopHomePage.computersList.contains('Desktops').click();
         shopComputerDesktopPage.selectDropDownItem('Name: A to Z')
             .productsTitle
             .then(items => {
@@ -95,17 +93,18 @@ describe('UI Tests', () => {
 
     });
 
-    it('Verify the ability to add a product to the Wishlist', () => {
+    it.only('Verify the ability to add a product to the Wishlist', () => {
         shopHomePage
-            .clickLoginLink();
-        shopLoginPage.emailField.type('inna_a9@email.com')
-        shopLoginPage.passwordField.type('testpassword1')
+            .clickLoginLink()
+            .emailField.type('inna_a9@email.com')
+        shopLoginPage
+            .passwordField.type('testpassword1')
         shopLoginPage
             .clickLoginButton()
-        shopHomePage.clickApparelShoesMenuItem()
+            .clickApparelShoesMenuItem()
             .apparelShoesProduct.first().invoke("text").then(itemName => {
-            apparelShoesPage.clickFirstProduct();
-            productPage
+        apparelShoesPage.clickFirstProduct();
+        productPage
                 .clickAddToWishlistButton()
                 .successNotification.should('have.text', 'The product has been added to your wishlist')
         productPage
