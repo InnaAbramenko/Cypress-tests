@@ -97,15 +97,17 @@ class ShopBasePage {
 
     clickRegisterLink() {
         this.registerLink.click();
-        
+        return this;
     };
 
     clickLoginLink() {
         this.loginLink.click();
+        return this;
     };
 
     clickAccounLink() {
         this.accountLink.click();
+        return this;
     }
 
     clickComputersMenuItem() {
